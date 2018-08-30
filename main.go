@@ -67,17 +67,3 @@ func main() {
 	}
 	fmt.Println("program had", ndefers, "defers,", ndyndefers, "of which were dynamic")
 }
-
-type deferwalk struct {
-	ndefers int
-	path    []ast.Node
-}
-
-func (d *deferwalk) Visit(n ast.Node) ast.Visitor {
-	_, ok := n.(*ast.DeferStmt)
-	if !ok {
-		return d
-	}
-	d.ndefers += 1
-	return d
-}
